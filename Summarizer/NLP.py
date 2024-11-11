@@ -5,7 +5,7 @@ This is NLP part where i first
 2) compressed words like "working -> work" ... thus simplifying into "TOKENS"
 3) seperated sentences from the paragraph
 4) counted the no of occurences of the most common words in the sentences
-5) using the probability matrix, we find the most common occuring words by counting each repeating word in EVERY SENTENCE
+5) using the probability matrix, we find the most important occuring words by counting each repeating word in EVERY SENTENCE
 
 
 
