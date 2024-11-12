@@ -12,28 +12,22 @@ This is NLP part where i first
 
 """
 
+import gensim 
+import nltk 
+nltk.download("punkt") 
+nltk.download("stopwords") 
+nltk.download("wordnet") 
+from gensim.corpora import Dictionary 
+from gensim.models import LdaModel 
+from nltk.tokenize import word_tokenize 
+from nltk.corpus import stopwords 
+from nltk.stem import WordNetLemmatizer
 
-import gensim  #used for topic modelling , document similarity analysis
 
-import nltk #natural language toolkit , used for compressing words into TOKENS
-
-nltk.download("punkt")
-nltk.download("stopwords")
-nltk.download("wordnet")
+#sample text 
+text =  """
 
 
-from gensim.corpora import Dictionary #seperates paragraph into sentences
-from gensim.models import LdaModel  #uses probability matrix
-from nltk.tokenize import word_tokenize #tokenizing root form sentences into word tokens
-from nltk.corpus import stopwords #removing unnecessary words
-from nltk.stem import WordNetLemmatizer   #compress words into root form  (working->work)
-
-# Preprocess the text
-
-#Example of the text
-
-text = 
-"""
 
 Good morning! Haseena . how are you…. Have u enjoyed your long weekend holiday in singapore
 
@@ -79,7 +73,44 @@ Great points. To wrap up, I'll summarize our action items: finalize the data cle
 Yes, sounds good.
 Excellent. Thanks, everyone. Let’s reconvene in two weeks to review our progress.
 
+
+
+
+
+
+
+
 """
+
+
+#take names,places,location for highlightation from the user and give more importance
+
+
+
+
+import re
+
+def is_invalid(text):
+    # Define invalid patterns and numbers
+    invalid_patterns = re.compile(r'[$%!@#^&*()0-9]')
+    
+    # Check for invalid characters or numbers
+    if invalid_patterns.search(text):
+        return True
+    return False
+
+
+
+things = []
+while True:
+    thing = input("Enter some thing for highlightation such as name,place,location... etc : ").strip()
+    
+    # Check if the input is 'quit' to terminate the loop... and also sanitize the input so that invalid inputs couldnt disrupt the program
+    if len(thing) > 100 or is_invalid(thing) or thing.lower() == "quit":
+        break
+    things.append(thing)
+
+
 
 sentences = list(text.split("."))
 
@@ -95,15 +126,24 @@ for text in sentences:
     dictionary = gensim.corpora.Dictionary([lemmatized_tokens])
     corpus = [dictionary.doc2bow(doc) for doc in [lemmatized_tokens]]
 
-    # Train the LDA/ probability matrix model 
+    # Train the LDA model
     try:
       lda_model = gensim.models.LdaModel(corpus, num_topics=2, id2word=dictionary, passes=15)
 
       # Print the topics
-      for idx, topic in lda_model.print_topics(-1):
 
-        #will print the most important words of each sentence... with probability (words are considered to be most important if it has more probability)
-          print('Topic: {} \nWords: {}'.format(idx, topic))
+      """
+      we need to return the important words now... 
+      """
+      for idx, topic in lda_model.print_topics(-1):
+            print([word.split("*")[1].strip().replace('"', '') for word in topic.split("+") if word not in set([',','.','+','-'])])
     except Exception as e:
       pass
+
+
+
+
+
+
+
 
