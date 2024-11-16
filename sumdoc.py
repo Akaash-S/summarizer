@@ -9,7 +9,7 @@ def read_file(file_path):
     return text
 
 # Step 2: Summarize the text using a pre-trained transformer model
-def summarize_text(text, num_sentences=5):
+def summarize_text(text,max_length,num_sentences=5):
     # Initialize the summarizer pipeline from Hugging Face
     summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
     
@@ -20,7 +20,7 @@ def summarize_text(text, num_sentences=5):
     # Summarize each chunk and combine the results
     summary = ""
     for chunk in chunks:
-        chunk_summary = summarizer(chunk, max_length=50, min_length=20, do_sample=False)
+        chunk_summary = summarizer(chunk, max_length=max_length, min_length=20, do_sample=False)
         summary += chunk_summary[0]['summary_text'] + " "
     
     # Returning the summarized text
@@ -57,9 +57,26 @@ def main():
     
     # Read the content of the file
     text_content = read_file(input_file_path)
+    length = len(text_content.split())
+
+    #base case : if no words are found. empty file
+    if length == 0:
+        print("Cannot be summarized")
+
+    
+    max_length = None 
+
+    if length <= 500:
+        max_length = 50 
+    else:
+        max_length = length//10
+    
     
     # Summarize the content using the transformer model
-    summary = summarize_text(text_content, num_sentences=8)
+    summary = summarize_text(text_content,max_length,num_sentences=8)
+
+
+
     
     # Generate PDF with the summary
     output_pdf_path = "summary_report.pdf"
