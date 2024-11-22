@@ -38,7 +38,7 @@ def generate_pdf(summary, output_pdf_path):
 
     # Set title (using bold font)
     pdf.set_font("DejaVuB", '', 16)
-    pdf.cell(200, 10, text="Meeting Summary", ln=True, align='C')
+    pdf.cell(200, 10, "Meeting Summary", ln=True, align='C')
 
     # Set body text (using regular font)
     pdf.set_font("DejaVu", '', 12)
@@ -49,6 +49,7 @@ def generate_pdf(summary, output_pdf_path):
 
     # Output the PDF
     pdf.output(output_pdf_path)
+
 
 # Main function to run the entire process
 def main():
@@ -79,7 +80,7 @@ def main():
 
     
     # Generate PDF with the summary
-    output_pdf_path = "summary_report.pdf"
+    output_pdf_path = "remastered.pdf"
     generate_pdf(summary, output_pdf_path)
     
     print(f"Summary PDF generated: {output_pdf_path}")
