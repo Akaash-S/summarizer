@@ -1,13 +1,211 @@
-body {
+/* General Styles */
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ff7a8c, #ff66b2);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+/* App Layout */
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+}
+
+header {
+  margin-bottom: 30px;
+  padding: 25px 40px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+  font-size: 3.5rem;
+  color: #fff;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+header p {
+  font-size: 1.4rem;
+  color: #ffb3d9;
+  margin-top: 12px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Expanded Main Container */
+.main-container {
+  width: 100%;
+  max-width: 900px; /* Increased width */
+  background-color: #1e1e1e;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  margin-bottom: 40px;
+}
+
+.transcription-box {
+  margin-bottom: 30px;
+}
+
+.transcription-box h2 {
+  font-size: 2rem;
+  color: #ffb3d9;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Transcription Text Area */
+.transcription-text {
+  width: 100%;
+  height: 180px;
+  font-size: 1.2rem;
+  padding: 14px;
+  background-color: #2e2e2e;
+  border: 2px solid #ff7a8c;
+  border-radius: 15px;
+  color: #fff;
+  resize: none;
+  outline: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.transcription-text:focus {
+  border-color: #ff66b2;
+}
+
+/* Buttons */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.mic-button,
+.upload-button,
+.summarize-button,
+.clear-button {
+  padding: 15px 35px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.mic-button {
+  background-color: #ff7a8c;
+  color: #fff;
+}
+
+.mic-button:hover {
+  transform: scale(1.1);
+  background-color: #ff66b2;
+}
+
+.upload-button {
+  background-color: #ff66b2;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.upload-button:hover {
+  transform: scale(1.1);
+  background-color: #ff4c9e;
+}
+
+.summarize-button {
+  background-color: #ff4c9e;
+  color: #fff;
+}
+
+.summarize-button:hover {
+  transform: scale(1.1);
+  background-color: #ff3380;
+}
+
+.clear-button {
+  background-color: #ff3380;
+  color: #fff;
+}
+
+.clear-button:hover {
+  transform: scale(1.1);
+  background-color: #ff1a5b;
+}
+
+/* Hidden input for file upload */
+.audio-upload {
+  display: none;
+}
+
+/* Footer */
+.footer {
+  margin-top: 50px;
+  font-size: 1.2rem;
+  color: #ffb3d9;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.footer p {
+  margin: 0;
+}
+
+/* Hover Effects */
+button:hover {
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+/* Add Animation for Dynamic Effects */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Background Animation */
+body {
+  animation: gradientShift 10s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background: linear-gradient(135deg, #ff7a8c, #ff66b2);
+  }
+  50% {
+    background: linear-gradient(135deg, #ff66b2, #ff7a8c);
+  }
+  100% {
+    background: linear-gradient(135deg, #ff7a8c, #ff66b2);
+  }
 }

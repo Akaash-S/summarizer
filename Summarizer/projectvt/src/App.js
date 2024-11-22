@@ -1,109 +1,130 @@
-import React, { useState, useRef } from 'react';
-import { motion } from 'framer-motion';
-import './App.css';
+import React, { useState } from "react";
+import "./index.css";
 
 function App() {
-  const [text, setText] = useState("");
-  const [isListening, setIsListening] = useState(false);
-  const recognitionRef = useRef(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [transcription, setTranscription] = useState("");
+  const [isRecording, setIsRecording] = useState(false);
 
-  const startVoiceRecognition = () => {
-    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-    recognition.lang = 'en-US';
-    recognition.interimResults = true;
+  const handleMicInput = () => {
+    if (!("webkitSpeechRecognition" in window)) {
+      alert("Speech Recognition not supported in this browser.");
+      return;
+    }
+
+    const recognition = new window.webkitSpeechRecognition();
     recognition.continuous = true;
-    recognition.start();
+    recognition.interimResults = true;
+    recognition.lang = "en-US";
 
-    recognition.onstart = () => {
-      setIsListening(true);
-      setIsLoading(true);
-    };
+    if (isRecording) {
+      recognition.stop();
+      setIsRecording(false);
+    } else {
+      setTranscription(""); // Clear the text area
+      recognition.start();
+      setIsRecording(true);
 
-    recognition.onresult = (event) => {
-      const capturedText = event.results[0][0].transcript;
-      setText(capturedText); // Set the text from voice recognition
-    };
+      recognition.onresult = (event) => {
+        let transcript = "";
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            transcript += event.results[i][0].transcript;
+          }
+        }
+        setTranscription(transcript);
+      };
 
-    recognition.onerror = (event) => {
-      console.error("Error: ", event.error);
-    };
-
-    recognition.onend = () => {
-      setIsListening(false);
-      setIsLoading(false);
-    };
-
-    recognitionRef.current = recognition;
-  };
-
-  const stopVoiceRecognition = () => {
-    if (recognitionRef.current) {
-      recognitionRef.current.stop();
+      recognition.onerror = (err) => {
+        console.error("Speech recognition error:", err);
+        setIsRecording(false);
+      };
     }
   };
 
-  const clearText = () => {
-    setText("");
+  const handleClearText = () => setTranscription("");
+
+  const handleAudioFileUpload = (event) => {
+    const file = event.target.files[0];
+    if (!file) {
+      alert("No file selected.");
+      return;
+    }
+
+    if (file.type.startsWith("audio/")) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        alert("Audio file uploaded! Ready for processing.");
+        console.log("Audio file data:", reader.result);
+        // Send `reader.result` to server or process locally as needed
+      };
+      reader.readAsDataURL(file);
+    } else {
+      alert("Please upload a valid audio file.");
+    }
   };
 
-  const speakText = () => {
-    const utterance = new SpeechSynthesisUtterance(text);
-    window.speechSynthesis.speak(utterance);
-  };
+  const handleSummarize = () => {
+    if (!transcription.trim()) {
+      alert("No transcription available to summarize.");
+      return;
+    }
 
-  // Animation for typing effect
-  const textVariants = {
-    initial: { opacity: 0, width: 0 },
-    animate: {
-      opacity: 1,
-      width: "auto",
-      transition: { duration: 2, ease: "easeOut" },
-    },
-  };
+    // A basic keyword-based summarization
+    const words = transcription.split(" ");
+    const wordFrequency = {};
+    words.forEach((word) => {
+      wordFrequency[word] = (wordFrequency[word] || 0) + 1;
+    });
 
-  // Button hover animation
-  const buttonVariants = {
-    hover: { scale: 1.1, transition: { duration: 0.3 } },
-    tap: { scale: 0.95, transition: { duration: 0.1 } },
+    const sortedWords = Object.entries(wordFrequency).sort(
+      (a, b) => b[1] - a[1]
+    );
+    const summary = sortedWords
+      .slice(0, 5) // Taking top 5 keywords
+      .map((item) => item[0])
+      .join(", ");
+
+    alert(`Summary (keywords): ${summary}`);
   };
 
   return (
-    <div className="app-container">
-      <header className="app-header">
-        <h1>Voice-to-Text Recognition App</h1>
+    <div className="App">
+      <header>
+        <h1>Audio to Text Transcription</h1>
+        <p>Convert your audio effortlessly</p>
       </header>
 
-      <main className="app-main">
-        <motion.button
-          onClick={isListening ? stopVoiceRecognition : startVoiceRecognition}
-          variants={buttonVariants}
-          whileHover="hover"
-          whileTap="tap"
-          className="action-button"
-        >
-          {isListening ? "Stop Recognition" : "Start Voice Recognition"}
-        </motion.button>
-
-        {isLoading && <div className="loading-indicator">Listening...</div>}
-
-        {/* Text Container */}
-        <div className="text-container">
-          <motion.div
-            initial="initial"
-            animate="animate"
-            variants={textVariants}
-            className="text-display"
-          >
-            <p>{text}</p>
-          </motion.div>
+      <div className="main-container">
+        <div className="transcription-box">
+          <h2>Transcription</h2>
+          <textarea
+            className="transcription-text"
+            value={transcription}
+            readOnly
+            placeholder="Your transcription will appear here..."
+          />
         </div>
-
-        <div className="controls">
-          <button onClick={clearText} className="control-button">Clear Text</button>
-          <button onClick={speakText} className="control-button">Read Text</button>
+        <div className="action-buttons">
+          <button className="mic-button" onClick={handleMicInput}>
+            {isRecording ? "Stop Recording" : "Start Recording"}
+          </button>
+          <label className="upload-button">
+            Upload Audio File
+            <input
+              type="file"
+              accept="audio/*"
+              className="audio-upload"
+              onChange={handleAudioFileUpload}
+            />
+          </label>
+          <button className="summarize-button" onClick={handleSummarize}>
+            Summarize
+          </button>
+          <button className="clear-button" onClick={handleClearText}>
+            Clear Text
+          </button>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

@@ -1,166 +1,187 @@
-/* app.css */
-body {
-  font-family: 'Roboto', sans-serif;
+/* General Styles */
+* {
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ff7a8c, #ff66b2);
+  color: #fff;
   min-height: 100vh;
-  justify-content: flex-start;
-  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient background */
-  color: white;
-}
-
-.app-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 40px 20px;
-  flex: 1;
-}
-
-.app-header {
-  width: 100%;
-  padding: 20px 0;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.6); /* Dark overlay for header */
-  border-radius: 8px;
-  margin-bottom: 30px;
-}
-
-.app-header h1 {
-  margin: 0;
-  font-size: 2.5rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.app-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-  max-width: 600px;
-}
-
-.action-button {
-  padding: 18px 40px;
-  font-size: 20px;
-  cursor: pointer;
-  border-radius: 12px;
-  background-color: #ff7f50; /* Attractive orange color */
-  color: white;
-  border: none;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-  font-weight: bold;
-  margin-bottom: 30px;
-  width: 100%;
-  max-width: 320px;
-}
-
-.action-button:hover {
-  transform: scale(1.1);
-  background-color: #ff5722; /* Darker orange on hover */
-}
-
-.action-button:active {
-  transform: scale(0.95);
-}
-
-.text-container {
-  margin-top: 30px;
-  padding: 25px;
-  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
-  border-radius: 15px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 600px;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  color: #333;
-}
-
-.text-display {
-  font-size: 22px;
-  font-weight: 500;
-  color: #444;
-  text-align: left;
-  line-height: 1.6;
-}
-
-.controls {
-  margin-top: 30px;
-  display: flex;
-  gap: 30px;
   justify-content: center;
-  width: 100%;
-  max-width: 600px;
+  align-items: center;
+  text-align: center;
+  animation: gradientMove 10s ease infinite;
 }
 
-.control-button {
-  padding: 14px 30px;
-  font-size: 18px;
-  cursor: pointer;
-  background-color: #4caf50;
-  color: white;
+/* App Layout */
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+header {
+  margin-bottom: 30px;
+  padding: 20px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+  font-size: 3rem;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+header p {
+  font-size: 1.3rem;
+  color: #ffb3d9;
+  margin-top: 10px;
+}
+
+/* Expanded Main Container */
+.main-container {
+  width: 100%; /* Use full width */
+  max-width: 1200px; /* Further expanded width */
+  background-color: #1e1e1e;
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Transcription Box */
+.transcription-box {
+  margin-bottom: 30px;
+  width: 100%; /* Make it stretch */
+}
+
+.transcription-box h2 {
+  font-size: 1.8rem;
+  color: #ffb3d9;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.transcription-text {
+  width: 100%;
+  height: 150px;
+  font-size: 1rem;
+  padding: 12px;
+  background-color: #2e2e2e;
+  border: 2px solid #ff7a8c;
+  border-radius: 10px;
+  color: #fff;
+  resize: none;
+  outline: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.transcription-text:focus {
+  border-color: #ff66b2;
+}
+
+/* Buttons */
+.action-buttons {
+  display: flex;
+  justify-content: space-between;  /* Ensure buttons are spaced evenly */
+  width: 100%;  /* Make the buttons stretch across */
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.mic-button,
+.upload-button,
+.summarize-button,
+.clear-button {
+  padding: 12px 30px;
+  font-size: 1.2rem;
   border: none;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  max-width: 250px;
-  transition: all 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  flex: 1; /* Makes the buttons fill available space equally */
+  max-width: 220px;  /* Optional: Restricts button width */
 }
 
-.control-button:hover {
-  transform: scale(1.05);
-  background-color: #45a049; /* Slightly darker green on hover */
+.mic-button {
+  background-color: #ff7a8c;
+  color: #fff;
 }
 
-.control-button:active {
-  transform: scale(0.95);
+.mic-button:hover {
+  transform: scale(1.1);
+  background-color: #ff66b2;
 }
 
-.loading-indicator {
-  margin-top: 20px;
-  font-size: 18px;
-  color: #f0f0f0;
-  text-align: center;
+.upload-button {
+  background-color: #ff66b2;
+  color: #fff;
 }
 
-.app-footer {
-  background-color: #333;
-  color: white;
-  width: 100%;
-  padding: 10px;
-  text-align: center;
-  position: relative;
-  bottom: 0;
-  border-radius: 0 0 15px 15px;
+.upload-button:hover {
+  transform: scale(1.1);
+  background-color: #ff4c9e;
 }
 
-.app-footer p {
+.summarize-button {
+  background-color: #ff4c9e;
+  color: #fff;
+}
+
+.summarize-button:hover {
+  transform: scale(1.1);
+  background-color: #ff3380;
+}
+
+.clear-button {
+  background-color: #ff3380;
+  color: #fff;
+}
+
+.clear-button:hover {
+  transform: scale(1.1);
+  background-color: #ff4c9e;
+}
+
+/* Hidden input for file upload */
+.audio-upload {
+  display: none;
+}
+
+/* Footer */
+.footer {
+  margin-top: 40px;
+  font-size: 1rem;
+  color: #ffb3d9;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.footer p {
   margin: 0;
-  font-size: 14px;
 }
 
-@media (max-width: 768px) {
-  .action-button {
-    width: 90%;
+/* Gradient Animation */
+@keyframes gradientMove {
+  0% {
+    background: linear-gradient(135deg, #ff7a8c, #ff66b2);
   }
-
-  .controls {
-    flex-direction: column;
-    gap: 15px;
+  50% {
+    background: linear-gradient(135deg, #ff66b2, #ff7a8c);
   }
-
-  .control-button {
-    width: 90%;
-  }
-
-  .app-header h1 {
-    font-size: 1.8rem;
+  100% {
+    background: linear-gradient(135deg, #ff7a8c, #ff66b2);
   }
 }
