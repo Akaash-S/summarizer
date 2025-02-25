@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    // ...
+    "baseUrl": "./", // Corrected the comment for clarity
+    "paths": {
+      "@/*": [
+        "src/*" // Ensured the path resolution is correct
+      ]
+    }
+  }
+}

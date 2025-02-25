@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+//import LoginPage from './login/page'
 import './App.css'
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
           transform: `translateY(-${position}px)`
         }}
       />
+      <h1>Hello</h1>
     </div>
   )
 }
