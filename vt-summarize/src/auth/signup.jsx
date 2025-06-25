@@ -1,15 +1,25 @@
 import React from 'react'
 import { Mic } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { signInWithPopup } from 'firebase/auth'
+import { auth, provider } from '../../configs/FirebaseConfig'
 
 function SignUpPage() {
-
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate('/')
   }
 
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Google Sign-in error:', error.message);
+    }
+  };
 
   return (
     <div className='w-full h-screen flex items-start'>
@@ -76,7 +86,7 @@ function SignUpPage() {
             <p className='text-sm font-semibold absolute text-black bg-[#f5f5f5]'>or</p>
           </div>
 
-          <button className='w-full my-5 bg-transparent font-semibold border border-black rounded-md p-2.5 text-center flex items-center justify-center'>
+          <button className='w-full my-5 bg-transparent font-semibold border border-black rounded-md p-2.5 text-center flex items-center justify-center' onClick={() => handleGoogleLogin()}>
             <img src="/google.png" className='h-5 mr-2' />
             Sign up with Google
           </button>
