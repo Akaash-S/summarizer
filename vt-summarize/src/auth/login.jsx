@@ -1,6 +1,16 @@
 import React from 'react'
+import { Mic } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 function LoginPage() {
+
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate('/signup')
+    }
+
+
     return (
         <div className='w-full h-screen flex items-start'>
             <div className='relative w-1/2 h-full flex flex-col'>
@@ -13,9 +23,12 @@ function LoginPage() {
             </div>
 
             <div className='w-1/2 h-full bg-[#f5f5f5] flex flex-col p-20 justify-between items-center'>
-                <h1 className='text-xl text-black font-semibold'>Voice Digest</h1>
+                <h1 className='w-full max-w-[500px] text-xl mx-auto flex items-center gap-1.5 text-black font-semibold'>
+                    <Mic />
+                    Voice Digest
+                </h1>
 
-                <div className='w-full flex flex-col max-w-[550px]'>
+                <div className='w-full flex flex-col max-w-[500px]'>
                     <div className='w-full flex flex-col mb-2'>
                         <h3 className='text-2xl font-semibold mt-2'>Welcome to VT-Summarize</h3>
                         <p className='text-sm mb-2 text-gray-500'>Capture thoughts, summarize them fast</p>
@@ -51,7 +64,7 @@ function LoginPage() {
                         <button className='w-full my-3 font-semibold text-white bg-black rounded-md p-2.5 text-center flex items-center justify-center'>
                             Login to Voice Digest
                         </button>
-                        <button className='w-full bg-transparent font-semibold border border-black rounded-md p-2.5 text-center flex items-center justify-center'>
+                        <button onClick={() => handleClick()} className='w-full bg-transparent font-semibold border border-black rounded-md p-2.5 text-center flex items-center justify-center'>
                             Register to Voice Digest
                         </button>
                     </div>
@@ -68,7 +81,7 @@ function LoginPage() {
                 </div>
 
                 <div className='w-full flex items-center justify-center'>
-                    <p className='text-sm font-normal'>Don't have an account? <span className='font-semibold underline underline-offset-2 cursor-pointer'>Sign Up</span></p>
+                    <p className='text-sm font-normal'>Don't have an account? <span onClick={() => handleClick()} className='font-semibold underline underline-offset-2 cursor-pointer'>Sign Up</span></p>
                 </div>
             </div>
         </div>
