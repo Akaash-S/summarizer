@@ -38,14 +38,12 @@ function LoginPage() {
                         {/* Input for Email Address */}
                         <input type="email"
                             placeholder='Email Address'
-                            autoCorrect="none"
                             required
                             className='w-full border-b py-4 my-2 bg-transparent border-black outline-none focus:outline-none placeholder:text-gray-500'
                         />
                         {/* Input for Password */}
                         <input type="password"
                             placeholder='Password'
-                            autoCorrect="none"
                             required
                             className='w-full border-b py-4 my-2 bg-transparent border-black outline-none focus:outline-none placeholder:text-gray-500'
                         />
