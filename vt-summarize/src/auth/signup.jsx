@@ -3,6 +3,7 @@ import { Mic } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { signInWithPopup } from 'firebase/auth'
 import { auth, provider } from '../../configs/FirebaseConfig'
+import { toast } from 'sonner'
 
 function SignUpPage() {
   const navigate = useNavigate();
@@ -14,12 +15,16 @@ function SignUpPage() {
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      const user = result.user;
+      toast.success('Login Successfully')
       navigate('/dashboard');
     } catch (error) {
-      console.error('Google Sign-in error:', error.message);
+      toast.error('Google Sign-in error');
     }
   };
+
+  const handleSignup = () => {
+
+  }
 
   return (
     <div className='w-full h-screen flex items-start'>
@@ -73,10 +78,14 @@ function SignUpPage() {
           </div>
 
           <div className='w-full flex flex-col my-4'>
-            <button className='w-full my-3 font-semibold text-white bg-black rounded-md p-2.5 text-center flex items-center justify-center'>
+            <button className='w-full my-3 font-semibold text-white bg-black rounded-md p-2.5 text-center flex items-center justify-center'
+              onClick={() => handleSignup()}
+            >
               Register to Voice Digest
             </button>
-            <button onClick={() => handleClick()} className='w-full bg-transparent font-semibold border border-black rounded-md p-2.5 text-center flex items-center justify-center'>
+            <button className='w-full bg-transparent font-semibold border border-black rounded-md p-2.5 text-center flex items-center justify-center'
+              onClick={() => handleClick()}
+            >
               Login to Voice Digest
             </button>
           </div>

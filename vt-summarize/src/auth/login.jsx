@@ -2,6 +2,7 @@ import { Mic } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { signInWithPopup } from 'firebase/auth'
 import { auth, provider } from '../../configs/FirebaseConfig'
+import { toast } from "sonner"
 
 function LoginPage() {
     const navigate = useNavigate();
@@ -13,10 +14,10 @@ function LoginPage() {
     const handleGoogleLogin = async () => {
         try {
             const result = await signInWithPopup(auth, provider);
-            const user = result.user;
+            toast.success('Login Successfully')
             navigate('/dashboard');
         } catch (error) {
-            console.error('Google Sign-in error:', error.message);
+            toast.error('Google Sign-in error');
         }
     };
 
